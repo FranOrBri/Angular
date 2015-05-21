@@ -1,0 +1,62 @@
+<html> <!--developers.arcgis-->
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+		<script type="text/javascript" src="angular-esri-map.js"></script>
+		<script type="text/javascript" src="http://js.arcgis.com/3.13compact"></script>
+		<link rel="stylesheet " type="text/css" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+		<title>Angular</title>
+	</head>
+	<body ng-app="app">
+		<div ng-controller="mapController">
+			<esri-map id="map" center="map.center" zoom="map.zoom" basemap="{{map.basemap}}">
+				<esri-feature-layer url="http://services3.arcgis.com/KBpyuTYurH8v5r9k/arcgis/rest/services/ZonaInteresCordoba1/FeatureServer/0"></esri-feature-layer>
+				<div esri-legend target-id="legend"></div>
+			</esri-map>
+			<p>
+				<strong>Center:</strong>Latitud: {{map.center.lat}}, Longitud{{map.center.lng}}
+			</p>
+			<button type="button" ng-click="cambiarMapa(1)">Madrid</button>
+			<button type="button" ng-click="cambiarMapa(2)">Sevilla</button>
+			<select ng-model="map.basemap">
+				<option value="topo">Topografico</option>
+				<option value="gray">Gris</option>
+				<option value="streets">Calle</option>
+				<option value="satellite">Satelite</option>
+				<option value="oceans">Oceanos</option>
+				<option value="hybrid">Hibrido</option>
+				<option value="osm">Open Street Map</option>
+			</select>>
+
+			<div id="legend">				
+			</div>	
+		</div>	
+		<script type="text/javascript">
+			var app= angular.module('app',['esri.map']);
+			app.controller('mapController', function($scope){
+				$scope.map = {
+					center :{
+						lat: 37.883333,
+						lng: -4.766667
+					},
+					zoom: 13,
+					basemap: "topo",
+				};
+				$scope.cambiarMapa=function(id){
+					switch(id){
+						case 1:
+							$scope.map.center.lat=40.418889
+							$scope.map.center.lng=-3.691944
+						break;
+						case 2:
+							$scope.map.center.lat=37.383333
+							$scope.map.center.lng=-5.983333
+						break;
+					}
+				}
+			});
+			
+		</script>
+	</body>
+</html>
+
+
